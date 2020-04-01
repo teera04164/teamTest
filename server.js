@@ -27,17 +27,28 @@ app.use(function (req, res, next) {
 // app.use('/contents', (req, res) => res.send("test"))
 
 app.get('/contents', async (req, res) => {
-    console.log("in content");
-    
     // const cons = await Content.find({});
     res.status(200).json({word : "hello world"});
+    // console.log(res.json(cons));
+})
+app.get('/api/users', async (req, res) => {
+    // const cons = await Content.find({});
+    let user = [
+        {name: "teera"},
+        {name: "fakeName"},
+        {name: "sathon"}
+    ]
+    res.status(200).json(user);
     // console.log(res.json(cons));
 })
 //* Server static assets
 app.use(express.static(path.resolve(__dirname, './', 'build')));
 
 app.get('/', (req, res) => {
-    console.log("in *");
+    res.sendFile(path.resolve(__dirname, './', 'build', 'index.html'));
+});
+
+app.get('/about', (req, res) => {
     res.sendFile(path.resolve(__dirname, './', 'build', 'index.html'));
 });
 
