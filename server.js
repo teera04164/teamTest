@@ -12,6 +12,28 @@ app.use(express.json());
 //* สร้าง database schema
 // const Content = mongoose.model('contents', { forums: String });
 
+const MONGO_CONFIG = {
+    MONGO_DB_URI: `mongodb://rule-auth:rule-auth123@ds061076.mlab.com:61076/rule-base-auth`
+}
+
+mongoose.connect(MONGO_CONFIG.MONGO_DB_URI, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    keepAlive: 1,
+    connectTimeoutMS: 30000,
+    reconnectTries: 30,
+    reconnectInterval: 5000
+})
+mongoose.Promise = global.Promise;
+
+mongoose.connection.on('error', (error) => {
+    console.log('Database error: ' + error)
+});
+mongoose.connection.on('connected', () => {
+    console.log('Connected to database');
+});
+
+
 //* สร้าง instance จาก model
 // const kitty = new Content({ forums: 'Forums 2' });
 
